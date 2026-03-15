@@ -1,0 +1,10 @@
+{% extends "loan_app/base.html" %}
+{% block title %}Page Not Found — Loan Prediction AI{% endblock %}
+{% block content %}
+<div style="text-align:center;padding:5rem 1rem;">
+  <div style="font-size:5rem;font-weight:900;color:var(--navy);line-height:1;">404</div>
+  <h2 style="margin:1rem 0 0.5rem;color:var(--navy);">Page Not Found</h2>
+  <p style="color:var(--text-muted);margin-bottom:2rem;">The page you're looking for doesn't exist or has been moved.</p>
+  <a href="{% url 'home' %}" class="btn-primary-hero">← Back to Home</a>
+</div>
+{% endblock %}

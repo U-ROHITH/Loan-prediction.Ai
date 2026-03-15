@@ -1,0 +1,10 @@
+{% extends "loan_app/base.html" %}
+{% block title %}Server Error — Loan Prediction AI{% endblock %}
+{% block content %}
+<div style="text-align:center;padding:5rem 1rem;">
+  <div style="font-size:5rem;font-weight:900;color:var(--navy);line-height:1;">500</div>
+  <h2 style="margin:1rem 0 0.5rem;color:var(--navy);">Something Went Wrong</h2>
+  <p style="color:var(--text-muted);margin-bottom:2rem;">We're experiencing a temporary issue. Please try again in a moment.</p>
+  <a href="{% url 'home' %}" class="btn-primary-hero">← Back to Home</a>
+</div>
+{% endblock %}

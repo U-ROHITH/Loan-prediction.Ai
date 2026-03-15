@@ -1,0 +1,215 @@
+{% extends "loan_app/base.html" %}
+{% block title %}Loan Prediction AI — Smart Loan Eligibility Check{% endblock %}
+
+{% block content %}
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- Left: Copy -->
+      <div class="col-lg-6 hero-content">
+        <div class="hero-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="#c9a227"/></svg>
+          AI-Powered Decision Engine
+        </div>
+        <h1>Smart Lending for the <span>Modern Era</span></h1>
+        <p>
+          Get an instant loan eligibility verdict powered by our 91.3% accurate AI model.
+          No paperwork. No waiting. Just answers.
+        </p>
+        <div class="hero-actions">
+          <a href="{% url 'apply' %}" class="btn-primary-hero">Check Eligibility →</a>
+          <a href="#how-it-works" class="btn-ghost-hero">How It Works</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            No credit impact
+          </div>
+          <div class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Instant decision
+          </div>
+          <div class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            256-bit encrypted
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Loan type picker card -->
+      <div class="col-lg-5 offset-lg-1 hero-content">
+        <div class="hero-card">
+          <h4>What loan are you looking for?</h4>
+          <div class="loan-type-grid">
+            <div class="loan-chip active">
+              <span class="loan-chip-icon">🏠</span> Home
+            </div>
+            <div class="loan-chip">
+              <span class="loan-chip-icon">🎓</span> Education
+            </div>
+            <div class="loan-chip">
+              <span class="loan-chip-icon">🚗</span> Vehicle
+            </div>
+            <div class="loan-chip">
+              <span class="loan-chip-icon">💼</span> Personal
+            </div>
+            <div class="loan-chip">
+              <span class="loan-chip-icon">✨</span> Other
+            </div>
+          </div>
+          <a href="{% url 'apply' %}" class="btn-primary-hero" style="display:block;text-align:center;margin-top:1.4rem;">
+            Start Application →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     STATS BAR
+════════════════════════════════════════ -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="row align-items-center text-center g-3">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">91<span>.3%</span></div>
+          <div class="stat-label">Model Accuracy</div>
+        </div>
+      </div>
+      <div class="col d-none d-md-block stats-divider"></div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">&lt;<span>2</span> min</div>
+          <div class="stat-label">Instant Decision</div>
+        </div>
+      </div>
+      <div class="col d-none d-md-block stats-divider"></div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">5<span>+</span></div>
+          <div class="stat-label">Loan Types</div>
+        </div>
+      </div>
+      <div class="col d-none d-md-block stats-divider"></div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">256<span>-bit</span></div>
+          <div class="stat-label">Encrypted & Secure</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     LOAN TYPES
+════════════════════════════════════════ -->
+<section class="py-5 mt-3">
+  <div class="container">
+    <div class="section-header text-center">
+      <div class="section-tag">Our Products</div>
+      <h2 class="section-title">Loans for Every <span>Life Moment</span></h2>
+      <p class="section-sub">Competitive rates, instant eligibility check, no hidden fees.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-md-4 col-lg">
+        <div class="loan-card">
+          <div class="loan-card-icon" style="background:#eff6ff;">🏠</div>
+          <h5>Home Loan</h5>
+          <p>Finance your dream home with flexible repayment terms up to 30 years.</p>
+          <span class="loan-rate">From 8.75% p.a.</span>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg">
+        <div class="loan-card">
+          <div class="loan-card-icon" style="background:#f0fdf4;">🎓</div>
+          <h5>Education Loan</h5>
+          <p>Invest in your future with loans covering tuition, books, and living costs.</p>
+          <span class="loan-rate">From 8.50% p.a.</span>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg">
+        <div class="loan-card">
+          <div class="loan-card-icon" style="background:#fff7ed;">🚗</div>
+          <h5>Vehicle Loan</h5>
+          <p>Finance your dream car or two-wheeler with competitive rates.</p>
+          <span class="loan-rate">From 9.50% p.a.</span>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg">
+        <div class="loan-card">
+          <div class="loan-card-icon" style="background:#f8fafc;">💼</div>
+          <h5>Personal Loan</h5>
+          <p>Flexible funding for any personal need — travel, renovation, or emergencies.</p>
+          <span class="loan-rate">From 12.00% p.a.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     HOW IT WORKS
+════════════════════════════════════════ -->
+<section class="how-section py-5" id="how-it-works">
+  <div class="container">
+    <div class="section-header text-center">
+      <div class="section-tag">Process</div>
+      <h2 class="section-title">How It <span>Works</span></h2>
+      <p class="section-sub">Three simple steps to know your loan eligibility.</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h5>Fill Your Details</h5>
+          <p>Share your personal, financial, and loan information in our simple 3-step form. Takes under 2 minutes.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h5>AI Analyses</h5>
+          <p>Our neural network model evaluates 18 data points including income, credit score, and debt ratio.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h5>Get Your Result</h5>
+          <p>Receive an instant decision with confidence score, EMI breakdown, and actionable feedback.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CTA BANNER
+════════════════════════════════════════ -->
+<section class="py-5">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Ready to check your eligibility?</h2>
+      <p>Join thousands who got an instant loan decision with Loan Prediction AI.</p>
+      <a href="{% url 'apply' %}" class="btn-primary-hero">Start Free Check →</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

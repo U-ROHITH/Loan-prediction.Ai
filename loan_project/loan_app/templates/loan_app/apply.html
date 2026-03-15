@@ -1,0 +1,312 @@
+{% extends "loan_app/base.html" %}
+{% block title %}Apply for Loan — Loan Prediction AI{% endblock %}
+
+{% block content %}
+<div class="apply-wrapper" style="max-width:800px;">
+
+  <div class="apply-header">
+    <h2>Loan Eligibility Check</h2>
+    <p>Complete the 4-step form for an instant AI-powered decision.</p>
+  </div>
+
+  {% if error %}
+  <div class="error-alert show" style="display:block;margin-bottom:1.5rem;">{{ error }}</div>
+  {% endif %}
+
+  <!-- ── Step Indicator ── -->
+  <div class="step-indicator">
+    <div class="si-step active"><div class="si-circle">1</div><div class="si-label">Personal</div></div>
+    <div class="si-line"></div>
+    <div class="si-step"><div class="si-circle">2</div><div class="si-label">Employment</div></div>
+    <div class="si-line"></div>
+    <div class="si-step"><div class="si-circle">3</div><div class="si-label">Financial</div></div>
+    <div class="si-line"></div>
+    <div class="si-step"><div class="si-circle">4</div><div class="si-label">Loan Details</div></div>
+  </div>
+
+  <form method="POST" action="{% url 'predict' %}" id="loan-form" novalidate>
+    {% csrf_token %}
+
+    <!-- ══════════════════════════════════
+         STEP 1 — Personal Details
+    ══════════════════════════════════ -->
+    <div class="form-card form-step active">
+      <div class="error-alert">Please fill in all required fields.</div>
+      <div class="form-step-title">Personal Details</div>
+      <div class="form-step-subtitle">Tell us a bit about yourself.</div>
+
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="nb-label">Full Name <span style="color:var(--danger)">*</span></label>
+          <input type="text" name="full_name" class="nb-input" placeholder="e.g. Rohith Kumar" required />
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Gender <span style="color:var(--danger)">*</span></label>
+          <select name="gender" class="nb-select" required>
+            <option value="" disabled selected>Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Age <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="age" class="nb-input" placeholder="e.g. 30" min="18" max="70" required />
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Marital Status <span style="color:var(--danger)">*</span></label>
+          <select name="marital_status" class="nb-select" required>
+            <option value="" disabled selected>Select status</option>
+            <option value="Married">Married</option>
+            <option value="Single">Single</option>
+            <option value="Divorced">Divorced</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Dependents <span style="color:var(--danger)">*</span></label>
+          <select name="dependents" class="nb-select" required>
+            <option value="" disabled selected>Number of dependents</option>
+            <option value="0">0 — None</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3 or more</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="nb-label">Education Level <span style="color:var(--danger)">*</span></label>
+          <select name="education" class="nb-select" required>
+            <option value="" disabled selected>Select education level</option>
+            <option value="High School">High School</option>
+            <option value="Graduate">Graduate</option>
+            <option value="Postgraduate">Postgraduate</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <span></span>
+        <button type="button" class="btn-next">
+          Next: Employment
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 2 — Employment & Location
+    ══════════════════════════════════ -->
+    <div class="form-card form-step">
+      <div class="error-alert">Please fill in all required fields.</div>
+      <div class="form-step-title">Employment & Location</div>
+      <div class="form-step-subtitle">Your work profile and residential details.</div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="nb-label">Employment Status <span style="color:var(--danger)">*</span></label>
+          <select name="employment_status" class="nb-select" required>
+            <option value="" disabled selected>Select status</option>
+            <option value="Employed">Employed (Salaried)</option>
+            <option value="Self-Employed">Self-Employed / Business</option>
+            <option value="Unemployed">Unemployed</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Occupation Type <span style="color:var(--danger)">*</span></label>
+          <select name="occupation_type" class="nb-select" required>
+            <option value="" disabled selected>Select occupation</option>
+            <option value="Salaried">Salaried</option>
+            <option value="Professional">Professional (Doctor/Lawyer etc.)</option>
+            <option value="Business">Business Owner</option>
+            <option value="Freelancer">Freelancer</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Residential Status <span style="color:var(--danger)">*</span></label>
+          <select name="residential_status" class="nb-select" required>
+            <option value="" disabled selected>Select residence type</option>
+            <option value="Own">Own</option>
+            <option value="Rent">Rent</option>
+            <option value="Other">Other (Family/Company provided)</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Location Type <span style="color:var(--danger)">*</span></label>
+          <select name="city_town" class="nb-select" required>
+            <option value="" disabled selected>Select location</option>
+            <option value="Urban">Urban (Metro / Major City)</option>
+            <option value="Suburban">Suburban (Town / Tier-2 City)</option>
+            <option value="Rural">Rural (Village / Small Town)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back">← Back</button>
+        <button type="button" class="btn-next">
+          Next: Financial Info
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 3 — Financial Profile
+    ══════════════════════════════════ -->
+    <div class="form-card form-step">
+      <div class="error-alert">Please fill in all required fields.</div>
+      <div class="form-step-title">Financial Profile</div>
+      <div class="form-step-subtitle">Your financial details help assess eligibility accurately.</div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="nb-label">Annual Income <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="annual_income" class="nb-input" placeholder="e.g. 85000" min="0" required />
+          <p class="input-hint">Total gross annual income.</p>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Monthly Expenses <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="monthly_expenses" class="nb-input" placeholder="e.g. 2500" min="0" required />
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Credit Score <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="credit_score" id="credit_score" class="nb-input" placeholder="300–849" min="300" max="849" required />
+          <p class="input-hint" id="credit_hint"></p>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Existing Loans (count) <span style="color:var(--danger)">*</span></label>
+          <select name="existing_loans" class="nb-select" required>
+            <option value="" disabled selected>Number of active loans</option>
+            <option value="0">0 — No active loans</option>
+            <option value="1">1 active loan</option>
+            <option value="2">2 or more active loans</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Total Existing Loan Amount <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="total_existing_loan_amount" class="nb-input" placeholder="e.g. 25000" min="0" required />
+          <p class="input-hint">Sum of all active loan balances.</p>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Outstanding Debt <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="outstanding_debt" class="nb-input" placeholder="e.g. 12000" min="0" required />
+          <p class="input-hint">Credit cards, overdrafts, etc.</p>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Previous Loan Default? <span style="color:var(--danger)">*</span></label>
+          <select name="loan_history" class="nb-select" required>
+            <option value="" disabled selected>Select</option>
+            <option value="0">No — Clean record</option>
+            <option value="1">Yes — Had a previous default</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Bank Account History (years) <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="bank_account_history" class="nb-input" placeholder="0–9" min="0" max="9" required />
+          <p class="input-hint">How long you have held a bank account (0–9 years).</p>
+        </div>
+        <div class="col-md-12">
+          <label class="nb-label">Monthly Transaction Frequency <span style="color:var(--danger)">*</span></label>
+          <select name="transaction_frequency" class="nb-select" required>
+            <option value="" disabled selected>Average transactions per month</option>
+            <option value="6">Very Low (under 8/month)</option>
+            <option value="11">Low (9–13/month)</option>
+            <option value="17">Medium (14–20/month)</option>
+            <option value="23">High (21–25/month)</option>
+            <option value="27">Very High (26+/month)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back">← Back</button>
+        <button type="button" class="btn-next">
+          Next: Loan Details
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 4 — Loan Preferences
+    ══════════════════════════════════ -->
+    <div class="form-card form-step">
+      <div class="error-alert">Please select a loan purpose and fill all fields.</div>
+      <div class="form-step-title">Loan Details</div>
+      <div class="form-step-subtitle">Tell us about the loan you need.</div>
+
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="nb-label">Loan Purpose <span style="color:var(--danger)">*</span></label>
+          <div class="purpose-grid">
+            <div class="purpose-option">
+              <input type="radio" name="loan_purpose" id="p_home" value="Home" required />
+              <label class="purpose-label" for="p_home"><span>🏠</span> Home<span class="rate-badge">8.75%</span></label>
+            </div>
+            <div class="purpose-option">
+              <input type="radio" name="loan_purpose" id="p_vehicle" value="Vehicle" />
+              <label class="purpose-label" for="p_vehicle"><span>🚗</span> Vehicle<span class="rate-badge">9.50%</span></label>
+            </div>
+            <div class="purpose-option">
+              <input type="radio" name="loan_purpose" id="p_edu" value="Education" />
+              <label class="purpose-label" for="p_edu"><span>🎓</span> Education<span class="rate-badge">8.50%</span></label>
+            </div>
+            <div class="purpose-option">
+              <input type="radio" name="loan_purpose" id="p_per" value="Personal" />
+              <label class="purpose-label" for="p_per"><span>💼</span> Personal<span class="rate-badge">12.00%</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="nb-label">Loan Type <span style="color:var(--danger)">*</span></label>
+          <select name="loan_type" class="nb-select" required>
+            <option value="" disabled selected>Select type</option>
+            <option value="Secured">Secured (with collateral)</option>
+            <option value="Unsecured">Unsecured (no collateral)</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="nb-label">Co-Applicant <span style="color:var(--danger)">*</span></label>
+          <select name="co_applicant" class="nb-select" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Yes">Yes — Applying with a co-applicant</option>
+            <option value="No">No — Applying alone</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="nb-label">Loan Amount <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="loan_amount" id="loan_amount" class="nb-input" placeholder="e.g. 20000" min="1000" required />
+        </div>
+        <div class="col-md-6">
+          <label class="nb-label">Loan Term (Months) <span style="color:var(--danger)">*</span></label>
+          <input type="number" name="loan_term" id="loan_term" class="nb-input" placeholder="e.g. 60" min="12" max="240" required />
+          <p class="input-hint">12 = 1 yr &nbsp;|&nbsp; 60 = 5 yrs &nbsp;|&nbsp; 120 = 10 yrs</p>
+        </div>
+
+        <!-- Live EMI Preview -->
+        <div class="col-12">
+          <div class="emi-preview" id="emi_preview" style="display:none;">
+            <div class="emi-preview-label">Estimated Monthly EMI</div>
+            <div class="emi-preview-value" id="emi_preview_val">—</div>
+            <div class="input-hint" style="margin-top:4px;">Indicative. Final rate subject to eligibility.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back">← Back</button>
+        <button type="submit" class="btn-submit" id="submit-btn">
+          ✦ Check My Eligibility
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <p style="text-align:center;font-size:0.75rem;color:var(--text-muted);margin-top:1.5rem;">
+    Your data is encrypted and used only for eligibility assessment. This check does not affect your credit score.
+  </p>
+</div>
+
+{% endblock %}

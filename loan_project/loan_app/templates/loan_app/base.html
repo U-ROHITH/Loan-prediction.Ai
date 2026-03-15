@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Loan Prediction AI — Instant AI-powered loan eligibility check. Get results in seconds." />
+  <meta name="keywords" content="loan eligibility, loan prediction, AI loan, instant loan check, credit score" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="{% block og_title %}Loan Prediction AI — Smart Loan Eligibility{% endblock %}" />
+  <meta property="og:description" content="Get an instant AI-powered loan eligibility decision. 85% accurate model. No credit impact." />
+  <meta property="og:site_name"   content="Loan Prediction AI" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Loan Prediction AI" />
+  <meta name="twitter:description" content="Instant AI-powered loan eligibility check." />
+
+  <title>{% block title %}Loan Prediction AI{% endblock %}</title>
+
+  <!-- Favicon (inline SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'><rect width='34' height='34' rx='7' fill='%23c9a227'/><polygon points='17,5 30,13 4,13' fill='white'/><rect x='5' y='15' width='4' height='11' fill='white'/><rect x='11' y='15' width='4' height='11' fill='white'/><rect x='17' y='15' width='4' height='11' fill='white'/><rect x='23' y='15' width='4' height='11' fill='white'/><rect x='3' y='27' width='28' height='3' fill='white'/></svg>" type="image/svg+xml" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Loan Prediction AI CSS -->
+  <link rel="stylesheet" href="{% static 'loan_app/css/style.css' %}" />
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="nb-nav">
+  <a href="{% url 'home' %}" class="nb-logo">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="34" height="34" rx="7" fill="#c9a227"/>
+      <polygon points="17,5 30,13 4,13" fill="white"/>
+      <rect x="5"  y="15" width="4" height="11" fill="white"/>
+      <rect x="11" y="15" width="4" height="11" fill="white"/>
+      <rect x="17" y="15" width="4" height="11" fill="white"/>
+      <rect x="23" y="15" width="4" height="11" fill="white"/>
+      <rect x="3"  y="27" width="28" height="3"  fill="white"/>
+    </svg>
+    LoanPredict<span>.AI</span>
+  </a>
+
+  <ul class="nb-nav-links" role="navigation" aria-label="Main navigation">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'apply' %}">Apply for Loan</a></li>
+    <li><a href="{% url 'home' %}#how-it-works">How It Works</a></li>
+    <li><a href="{% url 'apply' %}" class="nb-cta-btn">Check Eligibility</a></li>
+  </ul>
+
+  <button class="nb-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── MAIN ── -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="nb-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <rect width="34" height="34" rx="7" fill="#c9a227"/>
+            <polygon points="17,5 30,13 4,13" fill="white"/>
+            <rect x="5"  y="15" width="4" height="11" fill="white"/>
+            <rect x="11" y="15" width="4" height="11" fill="white"/>
+            <rect x="17" y="15" width="4" height="11" fill="white"/>
+            <rect x="23" y="15" width="4" height="11" fill="white"/>
+            <rect x="3"  y="27" width="28" height="3"  fill="white"/>
+          </svg>
+          LoanPredict<span>.AI</span>
+        </div>
+        <p class="footer-tagline">Smart lending decisions powered by AI. Fast, transparent, and secure.</p>
+      </div>
+
+      <div class="col-md-2 offset-md-1">
+        <p class="footer-heading">Loan Types</p>
+        <ul class="footer-links">
+          <li><a href="{% url 'apply' %}">Home Loan</a></li>
+          <li><a href="{% url 'apply' %}">Vehicle Loan</a></li>
+          <li><a href="{% url 'apply' %}">Education Loan</a></li>
+          <li><a href="{% url 'apply' %}">Personal Loan</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-2">
+        <p class="footer-heading">Platform</p>
+        <ul class="footer-links">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'apply' %}">Check Eligibility</a></li>
+          <li><a href="{% url 'home' %}#how-it-works">How It Works</a></li>
+          <li><a href="{% url 'home' %}#loan-types">Loan Types</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3">
+        <p class="footer-heading">Quick Apply</p>
+        <p style="font-size:0.83rem;margin-bottom:1rem;">Get an instant AI decision in under 2 minutes.</p>
+        <a href="{% url 'apply' %}" style="background:var(--gold);color:var(--navy);font-weight:700;padding:0.6rem 1.4rem;border-radius:6px;font-size:0.85rem;display:inline-block;">
+          Apply Now →
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Loan Prediction AI. All rights reserved.</p>
+      <p>Model Accuracy: <strong style="color:var(--gold)">85%</strong> &nbsp;|&nbsp; Secure &amp; Encrypted &nbsp;|&nbsp; No Credit Impact</p>
+    </div>
+    <p class="footer-disclaimer">
+      Loan Prediction AI is a demonstration platform. Loan decisions are AI-generated for educational purposes only
+      and do not constitute actual financial advice. This is not a real financial institution.
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'loan_app/js/script.js' %}"></script>
+</body>
+</html>
