@@ -54,6 +54,7 @@ The project is production-ready: it includes server-side input validation, struc
 | Education     | 8.50%       |
 | Personal      | 12.00%      |
 
+
 **Admin Dashboard**
 - View all submitted applications with approval badge (✅ / ❌)
 - Filter by prediction outcome, loan purpose, employment status, gender, residential status
